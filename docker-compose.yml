@@ -1,0 +1,35 @@
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports: 
+      - "27017:27017"
+
+  redis: 
+    image: redis
+    container_name: redis
+    ports: 
+      - "6379:6379"
+    
+  rabbitmq: 
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports: 
+      - "5672:5672"
+      - "15672:15672"
+  
+  order-service: 
+    build: ./order-service
+    ports: 
+      - "3000:3000"
+    depends_on:
+      - "mongodb"
+      - "redis"
+      - "rabbitmq"
+    
+  order-worker: 
+    build: ./order-worker
+    depends_on: 
+      - "mongodb"
+      - "redis"
+      - "rabbitmq"
