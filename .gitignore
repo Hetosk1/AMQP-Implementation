@@ -1,2 +1,2 @@
-./order-service/node_modules
-./order-worker/node_modules
+order-service/node_modules
+order-worker/node_modules
